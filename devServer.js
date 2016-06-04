@@ -24,7 +24,7 @@ app.get('*', function(req, res) {
 });
 
 
-app.listen(PORT || 7770, 'localhost', function(err) {
+app.listen(PORT || 7770, function(err) {
   if (err) {
     console.log(err);
     return;
