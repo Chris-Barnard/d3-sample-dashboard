@@ -9,7 +9,8 @@ import css from './styles/style.styl'
 // import components
 import App from './components/App'
 import Single from './components/Single'
-import Placeholder from './components/Placeholder'
+// import Placeholder from './components/Placeholder'
+import AddTimeLog from './components/AddTimeLog'
 
 // import react router deps
 import { Router, Route, IndexRoute } from 'react-router'
@@ -20,7 +21,7 @@ const router = (
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={App}>
-        <IndexRoute component={Placeholder}></IndexRoute>
+        <IndexRoute component={AddTimeLog}></IndexRoute>
         <Route path="/view/:dataId" component={Single}></Route>
       </Route>
     </Router>

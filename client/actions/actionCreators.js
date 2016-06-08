@@ -51,13 +51,16 @@ export function removeTimeLog(timeLogId) {
   }
 }
 
-export function addTimeLog(timeLogId, projectName, description, timeInMinutes) {
+export function addTimeLog(json) {
+    const autoMin = 1000
+    const autoId = json.timelog_id ? json.timelog_id : Math.floor( Math.random() * autoMin ) + autoMin
+
     return {
       type : 'ADD_TIME_LOG',
-      timeLogId,
-      projectName,
-      description,
-      timeInMinutes
+      timeLogId : autoId,
+      projectName : json.project_name,
+      description : json.description,
+      timeInMinutes : json.time_in_minutes * 1
     }
 }
 

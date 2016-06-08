@@ -51,6 +51,12 @@ describe('timeLogs reducer', () => {
     const description = 'New Entry'
     const project_name = 'Trucking Ticket'
     const timelog_id = 99
+    const json = {
+      timelog_id,
+      description,
+      project_name,
+      time_in_minutes
+    }
     const expectedState = [{
       timelog_id : 3,
       description : 'dummy',
@@ -64,7 +70,7 @@ describe('timeLogs reducer', () => {
       project_name
     }]
 
-    expect(reducer(initialState, actions.addTimeLog(timelog_id, project_name, description, time_in_minutes))).toEqual(expectedState)
+    expect(reducer(initialState, actions.addTimeLog(json))).toEqual(expectedState)
 
   })
 

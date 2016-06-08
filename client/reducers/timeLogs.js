@@ -46,7 +46,7 @@ function reducer(state = [], action) {
         ...state, {
           timelog_id : action.timeLogId,
           description : action.description,
-          time_in_minutes : action.timeInMinutes,
+          time_in_minutes : action.timeInMinutes * 1,
           project_name : action. projectName
         }
       ]
