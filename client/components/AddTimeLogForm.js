@@ -1,32 +1,69 @@
 import React, { Component, PropTypes } from 'react'
+import _ from 'lodash'
 import { reduxForm } from 'redux-form'
-export const fields = ['description', 'project_name', 'time_in_minutes']
 
-// need to add in validation
+const fields = { //['description', 'project_name', 'time_in_minutes']
+  project_name : {
+    type : 'input',
+    label : 'Project Name',
+    required : true
+  },
+  description : {
+    type : 'input',
+    label : 'Description',
+    required : true
+  },
+  time_in_minutes : {
+    type : 'input',
+    label : 'Time in Minutes',
+    // required : false
+  }
+}
+
+// synchronous validation attempt
+const validate = (values) => {
+
+  const errors = {}
+
+  _.each(fields, (item, field) => {
+    console.log('item',item)
+    if (!values[field] && item.required) {
+      errors[field] = 'is required'
+    }
+  })
+
+  if (isNaN(Number(values.time_in_minutes))) {
+    errors.time_in_minutes = 'must be a number'
+  }
+
+  return errors
+}
 
 class AddTimeLogForm extends Component {
+
+  renderField(fieldConfig, field) {
+    const fieldHelper = this.props.fields[field]
+    return (
+      <div>
+        <fieldConfig.type className={fieldHelper.touched && fieldHelper.invalid ? "has-error" : ""}
+          type="text"
+          placeholder={fieldHelper.touched && fieldHelper.error ? fieldConfig.label + ' ' + fieldHelper.error : fieldConfig.label}
+          {...fieldHelper}
+        />
+      </div>
+    )
+  }
+
+
+
   render() {
-    const { fields : { description, project_name, time_in_minutes }, handleSubmit, resetForm } = this.props
+    const { handleSubmit, resetForm } = this.props
 
     return (
       <form onSubmit={handleSubmit}>
+        {_.map(fields, this.renderField.bind(this))}
         <div>
-          <div>
-            <input type="text" placeholder="Project Name" {...project_name} />
-          </div>
-        </div>
-        <div>
-          <div>
-            <input type="text" placeholder="Description" {...description} />
-          </div>
-        </div>
-        <div>
-          <div>
-            <input type="text" placeholder="Time in Minutes" {...time_in_minutes} />
-          </div>
-        </div>
-        <div>
-          <button className="btn-submit" onClick={handleSubmit} >Submit</button>
+          <button type="submit" className="btn-submit" >Submit</button>
           <button className="btn-cancel" onClick={resetForm} >Clear Form</button>
         </div>
       </form>
@@ -42,5 +79,6 @@ AddTimeLogForm.PropTypes = {
 
 export default reduxForm({
   form : 'addTimeLog',
-  fields
+  fields : _.keys(fields),
+  validate
 })(AddTimeLogForm)
