@@ -15,10 +15,6 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-app.get('/csvFile', function(req, res) {
-  res.sendFile(path.join(__dirname, 'client/data/timeLogData.csv'))
-})
-
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, 'index.html'));
 });

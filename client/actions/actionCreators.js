@@ -50,3 +50,12 @@ export function removeTimeLog(timeLogId) {
     timeLogId
   }
 }
+
+export function resizeGraph(graphId, height, width) {
+  return {
+    type : 'RESIZE_GRAPH',
+    graphId,
+    height,
+    width
+  }
+}

@@ -32,7 +32,16 @@ const defaultState = {
       highlight : false
     }
   }),
-
+  graphs : {
+    lineGraph : {
+      height : 150,
+      width : 720
+    },
+    barGraph : {
+      heigth : 320,
+      width : 480
+    }
+  }
 }
 
 const enhancers = compose(
