@@ -51,11 +51,21 @@ export function removeTimeLog(timeLogId) {
   }
 }
 
-export function resizeGraph(graphId, height, width) {
+export function addTimeLog(timeLogId, projectName, description, timeInMinutes) {
+    return {
+      type : 'ADD_TIME_LOG',
+      timeLogId,
+      projectName,
+      description,
+      timeInMinutes
+    }
+}
+
+export function resizeGraph(graphId, width, height) {
   return {
     type : 'RESIZE_GRAPH',
     graphId,
-    height,
-    width
+    width,
+    height
   }
 }

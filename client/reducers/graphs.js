@@ -2,8 +2,8 @@ function graph(state = {}, action) {
   switch(action.type) {
     case 'RESIZE_GRAPH':
       return {
-        height : action.height,
-        width : action.width
+        width : action.width,
+        height : action.height
       }
     default:
       return state

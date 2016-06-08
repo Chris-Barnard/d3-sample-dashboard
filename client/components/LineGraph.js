@@ -134,7 +134,7 @@ class LineGraph extends Component {
     const yAxis = d3.svg.axis()
       .scale(y)
       .orient('left')
-      .ticks(5)
+      .ticks(3)
 
     const xAxis = d3.svg.axis()
       .scale(x)
@@ -144,6 +144,7 @@ class LineGraph extends Component {
     const yGrid = d3.svg.axis()
       .scale(y)
       .orient('left')
+      .ticks(3)
       .tickSize(-w, 0, 0)
       .tickFormat("")
 
@@ -160,7 +161,7 @@ class LineGraph extends Component {
           <g transform={transform}>
             <path className="line" d={line(data)} strokeLinecap="round" />
             <Dots data={data} x={x} y={y} onMouseOver={onMouseOver} onMouseOut={onMouseOut} onClick={onDotClick} />
-            {/*<Grid h={h} grid={yGrid} gridType="y" />*/}
+            <Grid h={h} grid={yGrid} gridType="y" />
             <Axis h={h} axis={yAxis} axisType="y" />
             <Axis h={h} axis={xAxis} axisType="x" />
           </g>

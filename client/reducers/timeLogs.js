@@ -41,6 +41,15 @@ function reducer(state = [], action) {
         ...state.slice(0,timeLogIndex),
         ...state.slice(timeLogIndex + 1)
       ]
+    case 'ADD_TIME_LOG':
+      return [
+        ...state, {
+          timelog_id : action.timeLogId,
+          description : action.description,
+          time_in_minutes : action.timeInMinutes,
+          project_name : action. projectName
+        }
+      ]
     default:
       return state
   }
