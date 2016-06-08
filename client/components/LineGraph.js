@@ -118,13 +118,14 @@ class LineGraph extends Component {
     const margin = { top : 20, right: 50, bottom : 20, left: 50 }
     const w = width - (margin.left + margin.right)
     const h = height - (margin.top + margin.bottom)
+    const newData = data.unshift({id : 0, value : 0})
 
     // transform - this shifts our grid over to the start of our graph to allow for the margins
     const transform = 'translate(' + margin.left + ',' + margin.top + ')'
 
     const x = d3.scale.ordinal()
       .domain(data.map((d) => d.id ))
-      .rangeRoundBands( [0, w], .9)
+      .rangeRoundPoints( [0, w], .9)
 
     // here we are setting the y scale to be the maximum value of the dataset + 25%
     const y = d3.scale.linear()
