@@ -26,7 +26,6 @@ const validate = (values) => {
   const errors = {}
 
   _.each(fields, (item, field) => {
-    console.log('item',item)
     if (!values[field] && item.required) {
       errors[field] = 'is required'
     }
