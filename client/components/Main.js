@@ -47,8 +47,15 @@ function assembleTotalData(data) {
 
 class Main extends Component {
 
+  componentDidMount() {
+    const { fetchTimeLogs } = this.props
+
+    return fetchTimeLogs()
+
+  }
+
   render() {
-    const { timeLogs } = this.props
+    const { timeLogs, fetchTimeLogs } = this.props
 
     // const totalData = timeLogs.filter((line) => {
     //   return line.description === 'Total'

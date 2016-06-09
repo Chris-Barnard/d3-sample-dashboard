@@ -6,7 +6,7 @@
     "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
     "build": "npm run clean && npm run build:webpack",
     "test": "NODE_ENV=development mocha './tests/*/*.js' --compilers js:babel-core/register",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist && webpack --config webpack.config.dev.js",
     "start": "node devServer.js",
     "tunnel": "browser-sync start --proxy localhost:7770 --tunnel wesbos"
   },
@@ -47,6 +47,8 @@
     "redbox-react": "^1.2.3",
     "redux": "^3.5.2",
     "redux-form": "^5.2.5",
+    "redux-optimist": "0.0.2",
+    "redux-thunk": "^2.1.0",
     "rimraf": "^2.5.2",
     "style-loader": "^0.13.1",
     "stylus": "^0.54.5",

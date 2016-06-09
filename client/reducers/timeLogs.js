@@ -28,6 +28,8 @@ function reducer(state = [], action) {
       return state.map((data) => timeLog(data, action))
     case 'DESELECT_ACTIVE_HIGHLIGHT':
       return state.map((data) => timeLog(data, action))
+    case 'LOAD_TIME_LOGS_RESPONSE':
+      return action.data
     case 'REMOVE_TIME_LOG':
       const timeLogIndex = state.findIndex((element, index, array) => {
         while (element.timelog_id <= action.timeLogId) {
@@ -41,6 +43,15 @@ function reducer(state = [], action) {
         ...state.slice(0,timeLogIndex),
         ...state.slice(timeLogIndex + 1)
       ]
+    case 'ADD_TIME_LOG_RESPONSE':
+      return [
+        ...state, {
+          timelog_id : action.timeLogId,
+          description : action.description,
+          time_in_minutes : action.timeInMinutes * 1,
+          project_name : action. projectName
+        }
+      ] 
     case 'ADD_TIME_LOG':
       return [
         ...state, {
