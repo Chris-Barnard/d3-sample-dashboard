@@ -2,11 +2,12 @@ import React, { Component, PropTypes } from 'react'
 import _ from 'lodash'
 import { reduxForm } from 'redux-form'
 
-const fields = { //['description', 'project_name', 'time_in_minutes']
+const fields = { 
   project_name : {
-    type : 'input',
+    type : 'select',
     label : 'Project Name',
-    required : true
+    required : true,
+    options : []
   },
   description : {
     type : 'input',
@@ -40,8 +41,26 @@ const validate = (values) => {
 
 class AddTimeLogForm extends Component {
 
+  renderSelect(fieldConfig, field) {
+    const fieldHelper = this.props.fields[field]
+    const { projects } = this.props
+
+    return (
+      <div>
+        <fieldConfig.type className={fieldHelper.touched && fieldHelper.invalid ? "has-error" : ""}
+          placeholder={fieldHelper.touched && fieldHelper.error ? fieldConfig.label + ' ' + fieldHelper.error : fieldConfig.label}
+          value={fieldHelper.value || ''}
+          {...fieldHelper} >
+          <option></option>
+          {projects.map(item => <option value={item.name} >{item.name}</option>)}
+        </fieldConfig.type>
+      </div>
+    )
+  }
+
   renderField(fieldConfig, field) {
     const fieldHelper = this.props.fields[field]
+    if (fieldConfig.type === 'select') { return this.renderSelect(fieldConfig, field) }
     return (
       <div>
         <fieldConfig.type className={fieldHelper.touched && fieldHelper.invalid ? "has-error" : ""}

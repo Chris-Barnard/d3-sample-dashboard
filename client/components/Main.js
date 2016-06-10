@@ -48,8 +48,9 @@ function assembleTotalData(data) {
 class Main extends Component {
 
   componentDidMount() {
-    const { fetchTimeLogs } = this.props
+    const { fetchTimeLogs, fetchActiveProjects } = this.props
 
+    fetchActiveProjects()
     return fetchTimeLogs()
 
   }

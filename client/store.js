@@ -9,7 +9,7 @@ import d3 from 'd3'
 import rootReducer from './reducers/index'
 
 // import data
-import timeLogs from './data/timeLogData'
+// import timeLogs from './data/timeLogData'
 
 
 // read in the csv
@@ -26,13 +26,8 @@ import timeLogs from './data/timeLogData'
 })*/
 
 const defaultState = {
-  timeLogs : timeLogs.map((d) => {
-    return { ...d,
-      time_in_minutes : d.time_in_minutes * 1,
-      timelog_id : d.timelog_id * 1,
-      highlight : false
-    }
-  }),
+  timeLogs : [],
+  projects : [],
   graphs : {
     lineGraph : {
       height : 150,

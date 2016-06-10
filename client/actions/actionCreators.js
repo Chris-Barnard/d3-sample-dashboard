@@ -98,7 +98,6 @@ function removeTimeLogError(error, asyncId) {
 function removeTimeLogResponse(data, asyncId) {
   return {
     type : 'REMOVE_TIME_LOG_RESPONSE',
-    data,
     optimist : {
       type : COMMIT,
       id : asyncId
@@ -218,3 +217,36 @@ export function fetchTimeLogs() {
   }
 }
 
+  /***  FETCH_PROJECTS  ***/
+function fetchActiveProjectsRequest() {
+  return {
+    type : 'FETCH_ACTIVE_PROJECTS_REQUEST'
+  }
+}
+
+function fetchActiveProjectsResponse(data) {
+  return {
+    type : 'FETCH_ACTIVE_PROJECTS_RESPONSE',
+    data
+  }
+}
+
+function fetchActiveProjectsError(error) {
+  return {
+    type : 'FETCH_ACTIVE_PROJECTS_ERROR',
+    error
+  }
+}
+
+// async functino
+export function fetchActiveProjects() {
+  return (dispatch) => {
+    dispatch(fetchActiveProjectsRequest())
+
+    return api.fetchActiveProjects()
+      .then(handleErrors)
+      .then(response => response.json())
+      .then(data => dispatch(fetchActiveProjectsResponse(data.data)))
+      .catch(err => dispatch(fetchActiveProjectsError(err.message)))
+  }
+}

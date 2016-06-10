@@ -7,11 +7,13 @@ import optimist from 'redux-optimist'
 // import comments from './comments'
 import timeLogs from './timeLogs'
 import graphs from './graphs'
+import projects from './projects'
 
 
 
 const rootReducer = optimist(combineReducers({
   timeLogs,
+  projects,
   graphs,
   routing : routerReducer,
   form : formReducer

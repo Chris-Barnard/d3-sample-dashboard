@@ -8,7 +8,8 @@ import Main from './Main'
 function mapStateToProps(state) {
   return {
     timeLogs : state.timeLogs,
-    graphs : state.graphs
+    graphs : state.graphs,
+    projects : state.projects
   }
 }
 

@@ -2,23 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom'
 import d3 from 'd3'
 import { Link } from 'react-router'
-import testData from '../data/timeLogData'
 
-/*const totalData = testData.filter((line) => {
-  return line.description === 'Total'
-})*/
-
-/*const data = totalData.map((line) => {
-  return {
-    label : line.project_name,
-    value : line.time_in_minutes / 60
-  }
-})*/
-
-
-
-// this class is responsible for drawing the axes
-export class Axis extends Component {
+// this class is responsible for drawing the X axis
+// i had to split the axis as I wanted to rotate the labels on one
+// but not the other
+export class XAxis extends Component {
   
   componentDidUpdate() {
     this.renderAxis()
@@ -29,7 +17,47 @@ export class Axis extends Component {
   }
 
   renderAxis() {
-    const { axis } = this.props
+    const { axis, axisType } = this.props
+    const node = ReactDOM.findDOMNode(this)
+
+    d3.select(node).call(axis)
+      .selectAll("text")
+        .attr("y", 0)
+        .attr("x", -3)
+        .attr("dy", ".35em")
+        .attr("transform", "rotate(-90)")
+        .style("text-anchor", "end")
+  }
+
+
+  render() {
+    const { h, axisType } = this.props
+    const translate = "translate(0," + h + ")"
+    
+    return (
+      <g className="axis" transform={axisType == 'x' ? translate : ""}></g>
+    )
+  }
+}
+XAxis.PropTypes = {
+  h : PropTypes.number.isRequired,
+  axis : PropTypes.func.isRequired,
+  axisType : PropTypes.oneOf(['x','y']).isRequired
+}
+
+// this class is responsible for drawing botn the axes
+export class YAxis extends Component {
+  
+  componentDidUpdate() {
+    this.renderAxis()
+  }
+
+  componentDidMount() {
+    this.renderAxis()  
+  }
+
+  renderAxis() {
+    const { axis, axisType } = this.props
     const node = ReactDOM.findDOMNode(this)
 
     d3.select(node).call(axis)
@@ -44,12 +72,11 @@ export class Axis extends Component {
     )
   }
 }
-Axis.PropTypes = {
+YAxis.PropTypes = {
   h : PropTypes.number.isRequired,
   axis : PropTypes.func.isRequired,
   axisType : PropTypes.oneOf(['x','y']).isRequired
 }
-
 
 
 class Graph extends Component {
@@ -64,7 +91,7 @@ class Graph extends Component {
     const height = 320
 
     // set the dimensions of the graph
-    const margin = { top : 40, right: 50, bottom : 20, left: 50 }
+    const margin = { top : 40, right: 50, bottom : 110, left: 50 }
     const w = width - (margin.left + margin.right)
     const h = height - (margin.top + margin.bottom)
 
@@ -93,7 +120,7 @@ class Graph extends Component {
     const yAxis = d3.svg.axis()
       .scale(y)
       .orient('left')
-      .ticks(5)
+      .ticks(3)
 
     const title = () => {
       return (
@@ -148,8 +175,8 @@ class Graph extends Component {
           <g transform={transform}>
             {rectBackground}
             {rectForeground}
-            <Axis h={h} axis={yAxis} axisType="y" />
-            <Axis h={h} axis={xAxis} axisType="x" />
+            <YAxis h={h} axis={yAxis} axisType="y" />
+            <XAxis h={h} axis={xAxis} axisType="x" />
           </g>
         </svg>
       </div>
