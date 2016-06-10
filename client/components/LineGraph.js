@@ -160,7 +160,7 @@ class LineGraph extends Component {
             <Dots data={data} x={x} y={y} onMouseOver={onMouseOver} onMouseOut={onMouseOut} onClick={onDotClick} />
             <Grid h={h} grid={yGrid} gridType="y" />
             <Axis h={h} axis={yAxis} axisType="y" />
-            <Axis h={h} axis={xAxis} axisType="x" />
+            {/*<Axis h={h} axis={xAxis} axisType="x" />*/}
           </g>
         </svg>
       </div>
