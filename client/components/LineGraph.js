@@ -106,6 +106,29 @@ Grid.PropTypes = {
 // main graph class
 class LineGraph extends Component {
   
+  componentDidMount() {
+    const { graphId, height, resizeGraph } = this.props
+    
+    // we want to do 2 things here
+
+    // calculate the initial size
+    const getNewWidth = () => {
+      const node = ReactDOM.findDOMNode(this)
+      const width = parseInt(d3.select(node).style('width'), 10)
+      resizeGraph(graphId, width, height)
+    }
+
+    // and set it to calcutate again on resize
+    window.addEventListener('resize', getNewWidth)
+
+    // run function on component mount
+    getNewWidth()
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize')
+  }
+
   render() {
     
     const { data, width, height, graphId, title, onMouseOver, onMouseOut, onDotClick } = this.props

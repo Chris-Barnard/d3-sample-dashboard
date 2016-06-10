@@ -56,7 +56,7 @@ class Main extends Component {
   }
 
   render() {
-    const { timeLogs, fetchTimeLogs, graphs } = this.props
+    const { timeLogs, graphs, resizeGraph } = this.props
 
     const graphId = 'barGraph'
     
@@ -82,7 +82,12 @@ class Main extends Component {
           <Link to="/">D3 Test Project</Link>
         </h1>
         <div className="main-container">
-          <Graph data={totalData} height={height} width={width} graphId={graphId} />
+          <Graph data={totalData} 
+            height={height}
+            width={width}
+            graphId={graphId}
+            resizeGraph={resizeGraph}
+          />
           {React.cloneElement(this.props.children, this.props)}
         </div>
       </div>
