@@ -10,30 +10,31 @@ import LineGraph from './LineGraph'
 class Single extends Component {
 
   render() {
-    const { params : { dataId }, timeLogs, selectActiveHighlight, deselectActiveHighlight, removeTimeLog } = this.props
+    const { params : { dataId }, graphs, timeLogs, selectActiveHighlight, deselectActiveHighlight, removeTimeLog } = this.props
 
     // prepare data for LineGraph
     // we need { id, value }
     let totalMinutesWorked = 0
     const lineGraphData = timeLogs
-      .filter((d) => d.project_name === dataId && d.description != 'Total')
+      .filter((line) => line.project_name === dataId)
       .map((d,i) => {
       
-      totalMinutesWorked += d.time_in_minutes
+        totalMinutesWorked += d.time_in_minutes
 
-      return {
-        id : d.timelog_id, 
-        value : totalMinutesWorked / 60
+        return {
+          id : d.timelog_id, 
+          value : totalMinutesWorked / 60
+        }
+      })
 
-      }
-    })
-
+    const graphId = 'lineGraph'
+    const width = graphs[graphId].width
+    const height = graphs[graphId].height
 
     // prepare data for DataTable
     // reset our cumulativeHours counter
     totalMinutesWorked = 0
-    const nonTotalData = timeLogs.filter((line) => line.description != 'Total')
-    const data = nonTotalData
+    const data = timeLogs
       .filter((line) => line.project_name === dataId)
       .map((d,i) => {
 
@@ -43,6 +44,7 @@ class Single extends Component {
           cumulativeHours : (totalMinutesWorked / 60).toFixed(2)
         })
       })
+
     const colNames = [
       { key : 'description', label : 'Description' },
       { key : 'time_in_minutes', label : 'Minutes Worked' },
@@ -52,6 +54,9 @@ class Single extends Component {
     return (
       <div className="single-project">
         <LineGraph data={lineGraphData}
+          width={width}
+          height={height}
+          graphId={graphId}
           title={dataId}
           onMouseOver={selectActiveHighlight}
           onMouseOut={deselectActiveHighlight}

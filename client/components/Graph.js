@@ -84,11 +84,7 @@ class Graph extends Component {
   
   render() {
 
-    const { data } = this.props
-
-    // these should be inputs via props eventually
-    const width = 480
-    const height = 320
+    const { data, width, height, graphId } = this.props
 
     // set the dimensions of the graph
     const margin = { top : 40, right: 50, bottom : 110, left: 50 }
@@ -170,7 +166,7 @@ class Graph extends Component {
 
     return (
       <div className="main-graph">
-        <svg id="chart" width={width} height={height}>
+        <svg id={graphId} width={width} height={height}>
           {title()}
           <g transform={transform}>
             {rectBackground}

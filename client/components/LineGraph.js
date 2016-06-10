@@ -108,11 +108,7 @@ class LineGraph extends Component {
   
   render() {
     
-    const { data, title, onMouseOver, onMouseOut, onDotClick } = this.props
-
-    // dimensions of the viewport
-    const width = 720
-    const height = 150
+    const { data, width, height, graphId, title, onMouseOver, onMouseOut, onDotClick } = this.props
 
     // set the dimensions of the graph
     const margin = { top : 20, right: 50, bottom : 20, left: 50 }
@@ -158,7 +154,7 @@ class LineGraph extends Component {
     return (
       <div className="line-graph">
         <h3 className="graph-title">{title}</h3>
-        <svg id="line-graph" width={width} height={height}>
+        <svg id={graphId} width={width} height={height}>
           <g transform={transform}>
             <path className="line" d={line(data)} strokeLinecap="round" />
             <Dots data={data} x={x} y={y} onMouseOver={onMouseOver} onMouseOut={onMouseOut} onClick={onDotClick} />

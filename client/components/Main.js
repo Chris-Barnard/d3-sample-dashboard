@@ -47,7 +47,7 @@ function assembleTotalData(data) {
 
 class Main extends Component {
 
-  componentDidMount() {
+  componentWillMount() {
     const { fetchTimeLogs, fetchActiveProjects } = this.props
 
     fetchActiveProjects()
@@ -56,8 +56,12 @@ class Main extends Component {
   }
 
   render() {
-    const { timeLogs, fetchTimeLogs } = this.props
+    const { timeLogs, fetchTimeLogs, graphs, resizeGraph } = this.props
 
+    const graphId = 'barGraph'
+    
+    const width = graphs[graphId].width
+    const height = graphs[graphId].height
     // const totalData = timeLogs.filter((line) => {
     //   return line.description === 'Total'
     // })
@@ -77,8 +81,9 @@ class Main extends Component {
         <h1>
           <Link to="/">D3 Test Project</Link>
         </h1>
+        <button onClick={() => resizeGraph('barGraph', 720, 320)}>Clike ME</button>
         <div className="main-container">
-          <Graph data={totalData} />
+          <Graph data={totalData} height={height} width={width} graphId={graphId} />
           {React.cloneElement(this.props.children, this.props)}
         </div>
       </div>

@@ -34,7 +34,7 @@ const defaultState = {
       width : 720
     },
     barGraph : {
-      heigth : 320,
+      height : 320,
       width : 480
     }
   }
