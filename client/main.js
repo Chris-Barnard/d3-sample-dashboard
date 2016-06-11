@@ -22,7 +22,7 @@ const router = (
     <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={AddTimeLog}></IndexRoute>
-        <Route path="/view/:dataId" component={Single}></Route>
+        <Route path="/view/:projectName" component={Single}></Route>
       </Route>
     </Router>
   </Provider>

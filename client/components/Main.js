@@ -3,14 +3,52 @@ import { Link } from 'react-router'
 
 import Graph from './Graph'
 
+class Main extends Component {
 
+  componentWillMount() {
+    const { fetchTimeLogs, fetchActiveProjects } = this.props
 
+    fetchActiveProjects()
+    return fetchTimeLogs()
+
+  }
+
+  render() {
+    const { timeLogs, graphs, resizeGraph } = this.props
+
+    const graphId = 'barGraph'
+    const barGraph = {
+      width : graphs[graphId].width,
+      height : graphs[graphId].height,
+      data : assembleTotalData(timeLogs)
+    }
+
+    return (
+      <div>
+        <h1>
+          <Link to="/">D3 Test Project</Link>
+        </h1>
+        <div className="main-container">
+          <Graph data={barGraph.data} 
+            height={barGraph.height}
+            width={barGraph.width}
+            graphId={graphId}
+            resizeGraph={resizeGraph}
+          />
+          {React.cloneElement(this.props.children, this.props)}
+        </div>
+      </div>
+    )
+  }
+}
+
+// function to combine the line level data into totals
 function assembleTotalData(data) {
-  // function to combine the line level data into totals
 
   let totalData = []
   
   // requires data to be sorted by project_name to work
+  // sorting is coming from api
   // data.sort((item) => item.project_name)
 
   // first we need to get the unique project names into the totalData object
@@ -43,56 +81,6 @@ function assembleTotalData(data) {
 
   return totalData
 
-}
-
-class Main extends Component {
-
-  componentWillMount() {
-    const { fetchTimeLogs, fetchActiveProjects } = this.props
-
-    fetchActiveProjects()
-    return fetchTimeLogs()
-
-  }
-
-  render() {
-    const { timeLogs, graphs, resizeGraph } = this.props
-
-    const graphId = 'barGraph'
-    
-    const width = graphs[graphId].width
-    const height = graphs[graphId].height
-    // const totalData = timeLogs.filter((line) => {
-    //   return line.description === 'Total'
-    // })
-
-    // const data = totalData.map((line) => {
-    //   return {
-    //     label : line.project_name,
-    //     value : line.time_in_minutes / 60
-    //   }
-    // })
-
-    // current data set includes legacy "Total" items
-    const totalData = assembleTotalData(timeLogs.filter((item) => item.description != 'Total'))
-
-    return (
-      <div>
-        <h1>
-          <Link to="/">D3 Test Project</Link>
-        </h1>
-        <div className="main-container">
-          <Graph data={totalData} 
-            height={height}
-            width={width}
-            graphId={graphId}
-            resizeGraph={resizeGraph}
-          />
-          {React.cloneElement(this.props.children, this.props)}
-        </div>
-      </div>
-    )
-  }
 }
 
 export default Main

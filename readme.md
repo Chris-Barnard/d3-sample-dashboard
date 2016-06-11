@@ -1,6 +1,8 @@
-# Learn Redux
+# Sample D3 Dashboard
 
-A simple React + Redux implementation. This will be turned into a free video series once the app is totally fleshed out.
+A simple React + Redux implementation. This is a sample project I'm working on to develop my skills with react and d3
+
+This connects to a custom back end api server that I have mocked together quickly with nodal.  I'd like to publish all this to heroku at somepoint with the backend to share, but for now I have an old local data build on heroku at <d3-sample-dashboard.herokuapp.com>
 
 ## Running
 
