@@ -10,7 +10,7 @@ class Dots extends Component {
     // have to shift circles over to center of the rangeBand()
     const circles = (data).map((d,i) => {
       return (
-        <circle className="dot"
+        <circle className={d.selected ? "selected-dot" : "dot"}
         r="7"
         cx={x(d.id) + x.rangeBand() / 2}
         cy={y(d.value)}
@@ -137,7 +137,7 @@ class LineGraph extends Component {
     const margin = { top : 20, right: 50, bottom : 20, left: 50 }
     const w = width - (margin.left + margin.right)
     const h = height - (margin.top + margin.bottom)
-    const newData = data.unshift({id : 0, value : 0})
+    data.unshift({id : 0, value : 0})
 
     // transform - this shifts our grid over to the start of our graph to allow for the margins
     const transform = 'translate(' + margin.left + ',' + margin.top + ')'
@@ -195,9 +195,13 @@ LineGraph.PropTypes = {
     id : PropTypes.number.isRequired,
     value : PropTypes.number.isRequired
   }).isRequired,
-  title : PropTypes.string.isRequired,
-  onMouseOver : PropTypes.func.isRequired,
-  onMouseOut : PropTypes.func.isRequired
+  width : PropTypes.number.isRequired,
+  height : PropTypes.number.isRequired,
+  graphId : PropTypes.string.isRequired,
+  title : PropTypes.string,
+  select : PropTypes.array,
+  onMouseOver : PropTypes.func,
+  onMouseOut : PropTypes.func
 }
 
 export default LineGraph

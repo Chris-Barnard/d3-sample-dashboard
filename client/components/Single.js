@@ -10,7 +10,7 @@ import LineGraph from './LineGraph'
 class Single extends Component {
 
   render() {
-    const { params : { dataId }, graphs, timeLogs, selectActiveHighlight, deselectActiveHighlight, removeTimeLog, resizeGraph } = this.props
+    const { params : { dataId }, graphs, timeLogs, selectActiveHighlight, deselectActiveHighlight, toggleActiveHighlight, removeTimeLog, resizeGraph } = this.props
 
     // prepare data for LineGraph
     // we need { id, value }
@@ -23,7 +23,8 @@ class Single extends Component {
 
         return {
           id : d.timelog_id, 
-          value : totalMinutesWorked / 60
+          value : totalMinutesWorked / 60,
+          selected : d.highlight
         }
       })
 
@@ -64,7 +65,7 @@ class Single extends Component {
           resizeGraph={resizeGraph}
        />
         <br/>
-        <DataTable data={data} colNames={colNames} />
+        <DataTable data={data} colNames={colNames} onClickRow={toggleActiveHighlight} />
       </div>
     )
   }

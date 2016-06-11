@@ -16,6 +16,12 @@ function timeLog(state, action) {
       } else {
         return state
       }
+    case 'TOGGLE_ACTIVE_HIGHLIGHT':
+      if (state.timelog_id === action.timeLogId) {
+        return { ...state,
+          highlight : !state.highlight
+        }
+      }
     default:
       return state
   }
@@ -27,6 +33,8 @@ function reducer(state = [], action) {
     case 'SELECT_ACTIVE_HIGHLIGHT':
       return state.map((data) => timeLog(data, action))
     case 'DESELECT_ACTIVE_HIGHLIGHT':
+      return state.map((data) => timeLog(data, action))
+    case 'TOGGLE_ACTIVE_HIGHLIGHT':
       return state.map((data) => timeLog(data, action))
     case 'LOAD_TIME_LOGS_RESPONSE':
       return action.data

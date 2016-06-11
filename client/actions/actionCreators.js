@@ -60,6 +60,13 @@ export function deselectActiveHighlight(timeLogId) {
   }
 }
 
+export function toggleActiveHighlight(timeLogId) {
+  return {
+    type : 'TOGGLE_ACTIVE_HIGHLIGHT',
+    timeLogId
+  }
+}
+
 export function resizeGraph(graphId, width, height) {
   return {
     type : 'RESIZE_GRAPH',

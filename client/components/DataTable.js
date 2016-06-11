@@ -3,7 +3,7 @@ import JsonTable from 'react-json-table'
 
 export class DataTable extends Component {
   render() {
-    const { data, colNames } = this.props
+    const { data, colNames, onClickRow } = this.props
 
     const settings = {
       rowClass : (current, item) => {
@@ -15,7 +15,7 @@ export class DataTable extends Component {
     }
 
     return (
-      <JsonTable className="data-table" rows={data} columns={colNames} settings={settings} />
+      <JsonTable className="data-table" rows={data} columns={colNames} onClickRow={(e, item) => onClickRow(item.timelog_id)} settings={settings} />
     )
   }
 }
